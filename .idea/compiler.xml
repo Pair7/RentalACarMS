@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="RentalAppDiscoveryService" />
+        <module name="RentalAppApiInvoices" />
+        <module name="ApiGateway" />
+        <module name="RentalAppApiRentals" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ApiGateway" target="11" />
+      <module name="RentalAppApiInvoices" target="11" />
+      <module name="RentalAppApiRentals" target="11" />
+      <module name="RentalAppDiscoveryService" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ApiGateway" options="-parameters" />
+      <module name="RentalAppApiInvoices" options="-parameters" />
+      <module name="RentalAppApiRentals" options="-parameters" />
+      <module name="RentalAppDiscoveryService" options="-parameters" />
+    </option>
+  </component>
+</project>
