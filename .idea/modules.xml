@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ApiGateway/ApiGateway.iml" filepath="$PROJECT_DIR$/ApiGateway/ApiGateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/RentalAppApiInvoices/RentalAppApiInvoices.iml" filepath="$PROJECT_DIR$/RentalAppApiInvoices/RentalAppApiInvoices.iml" />
       <module fileurl="file://$PROJECT_DIR$/RentalAppApiRentals/RentalAppApiRentals.iml" filepath="$PROJECT_DIR$/RentalAppApiRentals/RentalAppApiRentals.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RentalAppApiUsers/RentalAppApiUsers.iml" filepath="$PROJECT_DIR$/RentalAppApiUsers/RentalAppApiUsers.iml" />
       <module fileurl="file://$PROJECT_DIR$/RentalAppDiscoveryService/RentalAppDiscoveryService.iml" filepath="$PROJECT_DIR$/RentalAppDiscoveryService/RentalAppDiscoveryService.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/workspacerental.iml" filepath="$PROJECT_DIR$/.idea/workspacerental.iml" />
     </modules>

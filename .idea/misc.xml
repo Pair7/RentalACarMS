@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/RentalAppApiRentals/pom.xml" />
         <option value="$PROJECT_DIR$/RentalAppDiscoveryService/pom.xml" />
         <option value="$PROJECT_DIR$/ApiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/RentalAppApiUsers/pom.xml" />
       </list>
     </option>
   </component>
