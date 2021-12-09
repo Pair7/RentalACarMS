@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/individualCustomer")
+@RequestMapping("api/individualCustomer")
 public class IndividualCustomersController {
 
     private IndividualCustomerService individualCustomerService;

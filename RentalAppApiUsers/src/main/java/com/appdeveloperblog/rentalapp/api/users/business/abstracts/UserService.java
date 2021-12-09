@@ -1,6 +1,7 @@
 package com.appdeveloperblog.rentalapp.api.users.business.abstracts;
 
 import com.appdeveloperblog.rentalapp.api.users.business.dtos.UserSearchListDto;
+import com.appdeveloperblog.rentalapp.api.users.business.request.user.LoginUserRequest;
 import com.appdeveloperblog.rentalapp.api.users.core.utilities.results.DataResult;
 import com.appdeveloperblog.rentalapp.api.users.core.utilities.results.Result;
 
@@ -9,4 +10,5 @@ public interface UserService {
     Result checkIfEmailExists(String email);
     DataResult<UserSearchListDto> getById(int id);
     Result checkIfUserExists(int userId);
+    Result login(LoginUserRequest loginUserRequest);
 }
