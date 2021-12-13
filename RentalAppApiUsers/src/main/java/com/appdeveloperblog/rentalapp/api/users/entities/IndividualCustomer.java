@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Entity
 @PrimaryKeyJoinColumn(name = "user_id")
 @Table(name = "individual_customers")
-public class IndividualCustomer extends User {
+public class IndividualCustomer extends UserEntity {
 
     @Column(name = "first_name",nullable = false,length = 50)
     private String firstName;

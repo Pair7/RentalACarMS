@@ -8,10 +8,15 @@ import com.appdeveloperblog.rentalapp.api.users.core.utilities.business.Business
 import com.appdeveloperblog.rentalapp.api.users.core.utilities.mapping.ModelMapperService;
 import com.appdeveloperblog.rentalapp.api.users.core.utilities.results.*;
 import com.appdeveloperblog.rentalapp.api.users.dataAccess.UserDao;
-import com.appdeveloperblog.rentalapp.api.users.entities.User;
+import com.appdeveloperblog.rentalapp.api.users.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class UserManager implements UserService {
@@ -27,38 +32,19 @@ public class UserManager implements UserService {
         this.modelMapperService = modelMapperService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-    @Override
-    public Result login(LoginUserRequest loginUserRequest) {
-        Result result = BusinessRules.run(checkCredentials(loginUserRequest.getEmail(), loginUserRequest.getPassword()));
-        if (result!=null) {
-            return result;
-        }
-        return new SuccessResult(Messages.LOGINSUCCESS);
-    }
-    private Result checkCredentials(String email,String password) {
-        var user =  this.userDao.getByEmail(email);
-        if (user == null) {
-            return new ErrorResult(Messages.LOGINEMAILERROR);
-        }
-        var result= bCryptPasswordEncoder.matches(password,user.getEncryptedPassword());
-        if (!result) {
-            return new ErrorResult(Messages.LOGINPASSWORDERROR+" "+result);
-        }
-        return new SuccessResult();
-    }
 
     @Override
     public DataResult<UserSearchListDto> getById(int id) {
 
-        User user = this.userDao.getById(id);
-        UserSearchListDto userSearchListDto = modelMapperService.forDto().map(user, UserSearchListDto.class);
+        UserEntity userEntity = this.userDao.getById(id);
+        UserSearchListDto userSearchListDto = modelMapperService.forDto().map(userEntity, UserSearchListDto.class);
         return new SuccessDataResult<UserSearchListDto>(userSearchListDto);
     }
 
     @Override
     public DataResult<UserSearchListDto> getByEmail(String email) {
-        User user = this.userDao.getByEmail(email);
-        UserSearchListDto userSearchListDto = modelMapperService.forDto().map(user, UserSearchListDto.class);
+        UserEntity userEntity = this.userDao.getByEmail(email);
+        UserSearchListDto userSearchListDto = modelMapperService.forDto().map(userEntity, UserSearchListDto.class);
         return new SuccessDataResult<UserSearchListDto>(userSearchListDto);
     }
 
@@ -78,4 +64,22 @@ public class UserManager implements UserService {
         return new SuccessResult();
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = this.userDao.findByEmail(username);
+        if(userEntity == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return new User(userEntity.getEmail(),userEntity.getEncryptedPassword(),true,true,true,true,new ArrayList<>());
+    }
+    public UserSearchListDto getUserDetailsByEmail(String email) {
+        UserEntity userEntity = this.userDao.findByEmail(email);
+        if(userEntity == null) {
+            throw new UsernameNotFoundException(email);
+        }
+        UserSearchListDto userSearchListDto = modelMapperService.forDto().map(userEntity, UserSearchListDto.class);
+
+        return userSearchListDto;
+    }
 }

@@ -23,9 +23,5 @@ public class UsersController {
     }
 
 
-    @PostMapping("login")
-    public Result login(@RequestBody LoginUserRequest loginUserRequest) {
-        return this.userService.login(loginUserRequest);
-    }
 
 }

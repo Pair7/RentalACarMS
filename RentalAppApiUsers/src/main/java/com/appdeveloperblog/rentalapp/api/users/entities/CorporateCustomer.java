@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @PrimaryKeyJoinColumn(name = "user_id")
 @Table(name = "corporate_customers")
-public class CorporateCustomer extends User {
+public class CorporateCustomer extends UserEntity {
 
     @Column(name="company_name",nullable = false,length = 100)
     private String companyName;
