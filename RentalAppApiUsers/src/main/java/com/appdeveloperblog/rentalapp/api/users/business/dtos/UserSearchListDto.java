@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserSearchListDto {
 
+    private int userId;
     private String email;
     private String password;
-    private int findeksScore;
+
 }

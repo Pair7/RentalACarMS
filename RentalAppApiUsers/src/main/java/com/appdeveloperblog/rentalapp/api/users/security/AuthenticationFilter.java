@@ -6,6 +6,8 @@ import com.appdeveloperblog.rentalapp.api.users.business.request.user.LoginUserR
 import com.appdeveloperblog.rentalapp.api.users.core.utilities.results.DataResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -55,6 +58,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String userName = ((User)authResult.getPrincipal()).getUsername();
         UserSearchListDto userDetails = this.userService.getUserDetailsByEmail(userName);
 
+        String token = Jwts.builder()
+                .setSubject(userDetails.getEmail())
+                .setExpiration(new Date(System.currentTimeMillis()+Long.parseLong(this.environment.getProperty("token.expiration"))))
+                .signWith(SignatureAlgorithm.HS512,environment.getProperty("token.secret"))
+                .compact();
+        response.addHeader("token", token);
+        response.addHeader("userId",userDetails.getEmail());
+    }
 
     }
-}
