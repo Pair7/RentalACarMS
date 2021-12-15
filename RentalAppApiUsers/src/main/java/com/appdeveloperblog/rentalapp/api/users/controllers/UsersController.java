@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UsersController {
     private UserService userService;
 
@@ -17,9 +17,9 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/status/check")
+    @GetMapping("status/check")
     public String status() {
-        return "Working on";
+        return "Working on" ;
     }
 
 

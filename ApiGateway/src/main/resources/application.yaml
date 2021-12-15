@@ -13,15 +13,62 @@ spring:
         - id: users-status-check
           uri: lb://users-ws
           predicates:
-            - Path=/users-ws/users/status/check
-            - Method=GET
-            - Header=Authorization, Bearer (.*)
+          - Path=/users-ws/api/users/status/check
+          - Method=GET
+          - Header=Authorization, Bearer (.*)
           filters:
-            - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
-            - AuthorizationHeaderFilter
+          - RewritePath=/users-ws/(?<segment>.*),/$\{segment}
+          - AuthorizationHeaderFilter
+
+        - id: users-ws-login
+          uri: lb://users-ws
+          predicates:
+          - Path=/users-ws/users/login
+          - Method=POST
+          filters:
+          - RewritePath=/users-ws/(?<segment>.*),/$\{segment}
+
+        - id: users-individual-customer
+          uri: lb://users-ws
+          predicates:
+          - Path=/users-ws/api/individualCustomer/add
+          - Method=POST
+          filters:
+          - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+
+        - id: users-individual-customer-ws-get-update-delete
+          uri: lb://users-ws
+          predicates:
+          - Path=/users-ws/api/individualCustomer/*
+          - Method=GET,PUT,DELETE
+          - Header=Authorization, Bearer (.*)
+          filters:
+          - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+          - AuthorizationHeaderFilter
+        - id: users-corporate-customer
+          uri: lb://users-ws
+          predicates:
+          - Path=/users-ws/api/corporateCustomer/add
+          - Method=POST
+          filters:
+          - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+
+        - id: users-individual-customer-ws-get-update-delete
+          uri: lb://users-ws
+          predicates:
+          - Path=/users-ws/api/corporateCustomer/*
+          - Method=GET,PUT,DELETE
+          - Header=Authorization, Bearer (.*)
+          filters:
+          - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
+          - AuthorizationHeaderFilter
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+
+
+token:
+  secret: mysupersecretkeymysupersecretkeymysupersecretkey

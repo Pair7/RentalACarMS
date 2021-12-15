@@ -28,7 +28,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         //hangi endpointe kim erişebilir user altındaki herşeye izin ver herkes erişebilsin demek bu
-        http.authorizeRequests().antMatchers("/**").hasIpAddress(this.environment.getProperty("gateway.ip"))
+        http.authorizeRequests().antMatchers("/api/**").hasIpAddress(this.environment.getProperty("gateway.ip"))
                 .and()
                 .addFilter(getAuthenticationFilter());
         http.headers().frameOptions().disable();
@@ -36,7 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception{
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(this.userService,environment,authenticationManager());
-        //authenticationFilter.setAuthenticationManager(authenticationManager());
+        authenticationFilter.setFilterProcessesUrl(this.environment.getProperty("login.url.path"));
         return authenticationFilter;
     }
     @Override
