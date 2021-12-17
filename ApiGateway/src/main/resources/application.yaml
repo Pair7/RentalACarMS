@@ -62,6 +62,13 @@ spring:
           filters:
           - RewritePath=/users-ws/(?<segment>.*), /$\{segment}
           - AuthorizationHeaderFilter
+        - id: rentals-ws-event
+          uri: lb://rentals-ws
+          predicates:
+          - Path=/rentals-ws/rentalstypes
+          - Method=POST
+          filters:
+          - RewritePath=/rentals-ws/(?<segment>.*),/$\{segment}
 eureka:
   client:
     service-url:
